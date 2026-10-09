@@ -1,0 +1,70 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+  <meta charset="UTF-8">\
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\
+  <title>My Invoices</title>\
+  <link rel="manifest" href="manifest.json">\
+  <script src="https://cdn.tailwindcss.com"></script>\
+  <script src="https://unpkg.com/dexie/dist/dexie.js"></script>\
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>\
+</head>\
+<body class="bg-gray-100 text-gray-800 font-sans">\
+  <nav class="bg-blue-600 text-white p-4 flex justify-between">\
+    <h1 class="text-xl font-bold">InvoiceApp</h1>\
+    <div>\
+      <button onclick="switchTab('create')" class="px-3 py-1 bg-blue-700 rounded mr-2">New</button>\
+      <button onclick="switchTab('history')" class="px-3 py-1 bg-blue-700 rounded">History</button>\
+    </div>\
+  </nav>\
+\
+  <div id="tab-create" class="p-4 max-w-lg mx-auto">\
+    <div class="bg-white p-6 rounded shadow-md">\
+      <h2 class="text-lg font-bold mb-4">Create Invoice</h2>\
+      <input type="text" id="invNum" placeholder="Invoice # (e.g. INV001)" class="w-full p-2 mb-3 border rounded">\
+      <input type="text" id="clientName" placeholder="Billed To (Name)" class="w-full p-2 mb-3 border rounded">\
+      <input type="text" id="clientLoc" placeholder="Location / Address" class="w-full p-2 mb-3 border rounded">\
+      <input type="text" id="invDesc" placeholder="Work Description" class="w-full p-2 mb-3 border rounded">\
+      <input type="number" id="invAmount" placeholder="Total Amount (\'a3)" class="w-full p-2 mb-4 border rounded">\
+      <button onclick="saveAndShareInvoice()" class="w-full bg-green-600 text-white font-bold py-3 rounded shadow-lg">Save & Send via Email</button>\
+    </div>\
+  </div>\
+\
+  <div id="tab-history" class="p-4 max-w-lg mx-auto hidden">\
+    <h2 class="text-lg font-bold mb-4">Past Invoices</h2>\
+    <input type="text" id="searchBar" onkeyup="searchHistory()" placeholder="Search location, description, or #..." class="w-full p-2 mb-4 border rounded shadow-sm">\
+    <div id="historyList" class="space-y-3"></div>\
+  </div>\
+\
+  <div id="pdf-template" class="hidden p-10 bg-white" style="width: 800px; color: black;">\
+    <div class="flex justify-between border-b pb-4 mb-4">\
+      <h1 class="text-4xl font-bold">INVOICE</h1>\
+      <div class="text-right">\
+        <p class="font-bold">Invoice #: <span id="pdf-num"></span></p>\
+        <p>Date: <span id="pdf-date"></span></p>\
+      </div>\
+    </div>\
+    <div class="mb-8">\
+      <h3 class="font-bold text-gray-600">Billed To:</h3>\
+      <p id="pdf-client" class="text-lg"></p>\
+      <p id="pdf-loc" class="text-gray-600"></p>\
+    </div>\
+    <table class="w-full text-left mb-8 border-collapse">\
+      <tr class="border-b bg-gray-50"><th class="p-2">Description</th><th class="p-2 text-right">Total</th></tr>\
+      <tr class="border-b"><td class="p-2" id="pdf-desc"></td><td class="p-2 text-right font-bold" id="pdf-amount"></td></tr>\
+    </table>\
+  </div>\
+\
+  <script src="app.js"></script>\
+  <script>\
+    if ('serviceWorker' in navigator) \{ navigator.serviceWorker.register('sw.js'); \}\
+  </script>\
+</body>\
+</html>}
